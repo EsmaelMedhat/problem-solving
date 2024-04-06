@@ -1,63 +1,44 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
+//                                               Alphabet symmetry
+
+
+//Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2. In the alphabet, a and b are also in positions 1 and 2. Notice also that d and e in abode occupy the positions they would occupy in the alphabet, which are positions 4 and 5.
+
+//Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each word. For example,
+
+//solve(["abode","ABc","xyzD"]) = [4, 3, 1]
 #include <iostream>
-#include <algorithm>
-#include <cassert>
 using namespace std;
-
-class Student{
-private:
-  int student_grades[5];
-
-
-public:
-  void input(){
-      for(int i=0;i<5;i++) {
-      cin>>student_grades[i];
-      }
-  }
-   int calculateTotalScore(){
-    int total_score=0;
-    for(int i=0;i<5;i++)
+#include <vector>
+#include <string>
+using namespace std;
+vector<int> solve(const vector<std::string>& arr) // o(N^2)
+{
+vector<int> numberOfLetters;
+ int count=0;
+  string word;
+  for(int i=0;i<arr.size();i++)
+  {
+    word=arr[i];
+    for(int j=0;j<word.length();j++)
     {
-      total_score+=student_grades[i];
-
-    }
-
-       return total_score;
-   }
-
-
-
-};
-
-
-
-
-int main() {
-    int n; // number of students
-    cin >> n;
-    Student *s = new Student[n]; // an array of n students
-
-    for(int i = 0; i < n; i++){
-        s[i].input();
-    }
-
-    // calculate kristen's score
-    int kristen_score = s[0].calculateTotalScore();
-
-    // determine how many students scored higher than kristen
-    int count = 0;
-    for(int i = 1; i < n; i++){
-        int total = s[i].calculateTotalScore();
-        if(total > kristen_score){
-            count++;
+      word[j]=(char)tolower(word[j]);
+    if(int(word[j])-97==j)
+   count++;
         }
-    }
+  numberOfLetters.push_back(count);
+  count=0;
+  }
+    return numberOfLetters;
+}
+int main()
+{
+    vector<string> solve_input = {"abode", "ABc", "xyzD"}; // Equals(v{ 4, 3, 1 })
+    vector<int> numberOfLetters = solve(solve_input);
 
-    // print result
-    cout << count;
+    for (int element : numberOfLetters) {
+        cout << element << " ";
+    }
+    cout << endl;
 
     return 0;
 }
