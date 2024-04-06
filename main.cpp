@@ -1,63 +1,33 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <cassert>
+//                                           Sum of array singles
+
+
+//In this Kata, you will be given an array of numbers in which two numbers occur once and the rest occur only twice. Your task will be to return the sum of the numbers that occur only once.
+//For example, repeats([4,5,7,5,4,8]) = 15 because only the numbers 7 and 8 occur once, and their sum is 15. Every other number occurs twice
+
+#include<iostream>
+#include<vector>
 using namespace std;
+int repeats(vector<int>v) // o(N^2)
+{
+ int sum=0;
+  int repeated=0;
+  for(int i=0;i<v.size();i++){
+for(int j=0;j<v.size();j++){
+ if(v[i]==v[j])
+repeated++;
+}
+if(repeated==1)
+  sum+=v[i];
 
-class Student{
-private:
-  int student_grades[5];
-
-
-public:
-  void input(){
-      for(int i=0;i<5;i++) {
-      cin>>student_grades[i];
-      }
-  }
-   int calculateTotalScore(){
-    int total_score=0;
-    for(int i=0;i<5;i++)
-    {
-      total_score+=student_grades[i];
-
+    repeated=0;
     }
+return sum;
 
-       return total_score;
-   }
+}
+int main()
+{
+ vector<int>m={1,1,22,22,3,4,5,6,7};
 
-
-
-};
-
-
-
-
-int main() {
-    int n; // number of students
-    cin >> n;
-    Student *s = new Student[n]; // an array of n students
-
-    for(int i = 0; i < n; i++){
-        s[i].input();
-    }
-
-    // calculate kristen's score
-    int kristen_score = s[0].calculateTotalScore();
-
-    // determine how many students scored higher than kristen
-    int count = 0;
-    for(int i = 1; i < n; i++){
-        int total = s[i].calculateTotalScore();
-        if(total > kristen_score){
-            count++;
-        }
-    }
-
-    // print result
-    cout << count;
-
+    cout << repeats(m)<< endl;
     return 0;
 }
